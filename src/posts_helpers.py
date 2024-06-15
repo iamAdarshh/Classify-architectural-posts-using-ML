@@ -1,3 +1,24 @@
+"""
+This module provides functions to clean data, extract post IDs, save and load data,
+and fetch Stack Overflow post details.
+
+Functions:
+    clean_input(filename: str, new_filename: str) -> pd.DataFrame:
+        Cleans input data and returns a DataFrame.
+
+    load_data(filepath: str) -> pd.DataFrame:
+        Loads data from an Excel file.
+
+    extract_post_id(df: pd.DataFrame) -> pd.DataFrame:
+        Extracts post IDs from the 'URL ' column.
+
+    save_data(df: pd.DataFrame, filepath: str):
+        Saves a DataFrame to an Excel file.
+
+    get_stackoverflow_posts(post_ids: list) -> list:
+        Fetches Stack Overflow posts by their IDs.
+"""
+
 import os
 import pandas as pd
 import requests
@@ -5,6 +26,16 @@ from config import DEFAULT_DATA_FOLDER
 
 
 def clean_input(filename: str, new_filename: str) -> pd.DataFrame:
+    """
+    Cleans input data and returns a DataFrame.
+
+    Parameters:
+        filename (str): Name of the input file.
+        new_filename (str): Name of the new file to save cleaned data.
+
+    Returns:
+        pd.DataFrame: The cleaned data.
+    """
     new_filepath = os.path.join(DEFAULT_DATA_FOLDER, new_filename)
 
     if os.path.exists(new_filepath):
@@ -20,50 +51,67 @@ def clean_input(filename: str, new_filename: str) -> pd.DataFrame:
 
 
 def load_data(filepath: str) -> pd.DataFrame:
+    """
+    Loads data from an Excel file.
+
+    Parameters:
+        filepath (str): Path to the Excel file.
+
+    Returns:
+        pd.DataFrame: The loaded data.
+    """
     return pd.read_excel(filepath, header=0)
 
 
 def extract_post_id(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Extracts post IDs from the 'URL ' column.
+
+    Parameters:
+        df (pd.DataFrame): The input DataFrame.
+
+    Returns:
+        pd.DataFrame: The DataFrame with 'postId' column.
+    """
     df['postId'] = df['URL '].str.extract(r'questions/(\d+)', expand=False)
     return df
 
 
 def save_data(df: pd.DataFrame, filepath: str):
+    """
+    Saves a DataFrame to an Excel file.
+
+    Parameters:
+        df (pd.DataFrame): The DataFrame to save.
+        filepath (str): Path to save the Excel file.
+    """
     df.to_excel(filepath, index=False)
 
 
 def get_stackoverflow_posts(post_ids):
     """
-    Fetch details of Stack Overflow posts using their IDs.
+    Fetches Stack Overflow posts by their IDs.
 
     Parameters:
-        post_ids (list): A list of Stack Overflow post IDs.
+        post_ids (list): List of Stack Overflow post IDs.
 
     Returns:
-        list: A list of dictionaries containing post details.
+        list: List of post details.
     """
-    # Stack Exchange API URL
     url = "https://api.stackexchange.com/2.3/questions/{}"
-
-    # Join the list of post IDs into a comma-separated string
     ids = ";".join(map(str, post_ids))
-
-    # Define the parameters for the API request
     params = {
         'order': 'desc',
         'sort': 'activity',
         'site': 'stackoverflow'
     }
 
-    # Make the API request
-    response = requests.get(url.format(ids), params=params)
+    response = requests.get(url.format(ids), params=params, timeout=10)
 
-    # Check if the request was successful
     if response.status_code == 200:
-        # Parse the JSON response
         data = response.json()
         return data.get('items', [])
-    
+
     print(f"Error fetching data: {response.status_code}")
     return []
 
