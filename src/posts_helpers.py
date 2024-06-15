@@ -63,9 +63,9 @@ def get_stackoverflow_posts(post_ids):
         # Parse the JSON response
         data = response.json()
         return data.get('items', [])
-    else:
-        print(f"Error fetching data: {response.status_code}")
-        return []
+    
+    print(f"Error fetching data: {response.status_code}")
+    return []
 
 
 # # Example usage
