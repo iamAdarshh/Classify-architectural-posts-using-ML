@@ -6,8 +6,8 @@ This script processes programming post IDs from an RTF file by performing the fo
 4. Saves the post IDs and fetched details to Excel files.
 """
 
-import pandas as pd
 import os
+import pandas as pd
 
 from striprtf.striprtf import rtf_to_text
 from src.config import DEFAULT_DATA_FOLDER
@@ -54,16 +54,18 @@ if __name__ == '__main__':
     post_ids_df = pd.DataFrame(post_ids, columns=['post_id'])
     save_as_excel(post_ids_df, f"{DEFAULT_DATA_FOLDER}/processed/programming_posts_keys.xlsx")
 
-    posts, not_found_posts, answers = fetch_posts_in_batches(post_ids)
+    posts, answers = fetch_posts_in_batches(post_ids)
 
     programming_posts_df = pd.DataFrame(posts)
-    save_as_excel(programming_posts_df, os.path.join(DEFAULT_DATA_FOLDER,
-                                                     'processed',
-                                                     'programming_posts_details.xlsx'))
+    save_as_excel(programming_posts_df,
+                  os.path.join(DEFAULT_DATA_FOLDER,
+                               'processed',
+                               'programming_posts_details.xlsx'))
 
     answers_df = pd.DataFrame(answers)
-    save_as_excel(answers_df, os.path.join(DEFAULT_DATA_FOLDER,
-                                           'processed',
-                                           'programming_posts_answers_details.xlsx'))
+    save_as_excel(answers_df,
+                  os.path.join(DEFAULT_DATA_FOLDER,
+                               'processed',
+                               'programming_posts_answers_details.xlsx'))
 
     print("Saved files")

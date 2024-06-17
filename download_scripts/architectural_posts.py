@@ -41,8 +41,7 @@ def main():
 
     # Fetch additional post details in batches using the post IDs
     post_ids = cleaned_df['postId'].to_list()
-    posts, not_found_ids, answers = fetch_posts_in_batches(post_ids)
-    print("Total not found posts: ", len(not_found_ids))
+    posts, answers = fetch_posts_in_batches(post_ids)
 
     # Convert the fetched post details to a DataFrame
     architectural_posts_df = pd.DataFrame(posts)
