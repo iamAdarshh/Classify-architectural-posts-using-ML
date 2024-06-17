@@ -21,6 +21,7 @@ The data used in this project is sourced from Stack Overflow and can be accessed
 
 - **Query Interface**: You can retrieve specific information using the [Stack Exchange Data Explorer](https://data.stackexchange.com/stackoverflow/query/new).
 - **Database XML Dump**: The complete dataset is available for download from [Archive.org](https://archive.org/details/stackexchange).
+- **Stack Exchange API:** [Documentation](https://api.stackexchange.com/). Issues with throttles https://api.stackexchange.com/docs/throttle.
 
 ## Data Structure
 
@@ -70,6 +71,16 @@ To set up the project locally, follow these steps:
     pip install -r requirements.txt
     ```
 
+3. **Download the input data**:
+   - for windows
+      ```bash
+     download_data.bat
+     ```
+   - for macOS
+     ```shell
+     download_data.sh
+     ```
+     
 ## Contributing
 
 Contributions to this project are welcome. Please fork the repository and create a pull request with your changes. Ensure that your code adheres to the project's coding standards and includes appropriate tests.
