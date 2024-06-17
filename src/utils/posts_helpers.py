@@ -10,7 +10,7 @@ The main steps include:
 2. Fetching the posts for each batch.
 3. Returning the combined list of posts.
 """
-import os.path
+
 from typing import List, Dict, Tuple, Optional
 import time
 import requests
@@ -23,7 +23,7 @@ ANSWER_BASE_URL = "https://api.stackexchange.com/2.2/questions/{}/answers"
 
 def read_api_key(file_path: str) -> str:
     """Read the API key from a text file."""
-    with open(file_path, 'r') as file:
+    with open(file_path, 'r', encoding='utf-8') as file:
         return file.read().strip()
 
 
