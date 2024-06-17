@@ -44,4 +44,3 @@ def save_as_excel(df: pd.DataFrame, filepath: str):
 
     # Save the DataFrame to Excel
     df.to_excel(filepath, index=False)
-
