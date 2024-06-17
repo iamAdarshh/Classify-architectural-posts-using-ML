@@ -2,6 +2,7 @@
 This module contains tests for the text preprocessing functions in the preprocessing.py module.
 """
 
+import pytest
 from src.data.preprocessing import preprocess_text
 
 
@@ -111,3 +112,7 @@ def test_preprocess_text_complex_html():
         "test page head bold paragraph another paragraph link nest bold text"
     )
     assert preprocess_text(text) == expected
+
+
+if __name__ == "__main__":
+    pytest.main()
