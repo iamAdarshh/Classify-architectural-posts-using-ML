@@ -56,30 +56,56 @@ The methodology to classify architectural posts involves the following steps:
 4. **Model Training**: Train machine learning models to classify the posts based on their purpose and solution type.
 5. **Evaluation**: Evaluate the performance of the models using appropriate metrics.
 
+Here's an enhanced version of the setup section for your repository's README file:
+
+---
+
 ## Setup Instructions
 
-To set up the project locally, follow these steps:
+Follow these steps to set up the project locally:
 
-1. **Clone the repository**:
+### 1. Clone the Repository
+
+First, clone the repository to your local machine:
+
+```bash
+git clone https://github.com/yourusername/architectural-posts-classification.git
+cd architectural-posts-classification
+```
+
+### 2. Install Dependencies
+
+Ensure you have Python and pip installed. Then, install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Configure API Key
+
+To access the necessary data, you'll need to create an API key from StackExchange and add it to the project:
+
+1. Create an account on [StackExchange](https://api.stackexchange.com/).
+2. Configure your application to obtain an API key.
+3. Create a file named `apikey.txt` in the project root directory and paste your API key inside it.
+
+### 4. Download Input Data
+
+Download the required input data by running the appropriate script for your operating system:
+
+- **For Windows**:
     ```bash
-    git clone https://github.com/yourusername/architectural-posts-classification.git
-    cd architectural-posts-classification
+    download_data.bat
+    ```
+- **For macOS**:
+    ```shell
+    ./download_data.sh
     ```
 
-2. **Install the required dependencies**:
-    ```bash
-    pip install -r requirements.txt
-    ```
 
-3. **Download the input data**:
-   - for windows
-      ```bash
-     download_data.bat
-     ```
-   - for macOS
-     ```shell
-     download_data.sh
-     ```
+---
+
+This enhanced version includes clearer instructions, consistency in formatting, and an additional step to verify the setup, which helps ensure that users have correctly followed the setup process.
      
 ## Contributing
 

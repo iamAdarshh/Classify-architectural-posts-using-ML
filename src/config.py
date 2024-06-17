@@ -11,3 +11,6 @@ Attributes:
 import os
 
 DEFAULT_DATA_FOLDER = os.path.join(os.path.dirname(__file__), '..', 'data')
+API_KEY_PATH = os.path.join(os.path.dirname(__file__),
+                            '..'
+                            'apikey.txt')

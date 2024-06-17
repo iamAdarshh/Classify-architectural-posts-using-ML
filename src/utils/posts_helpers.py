@@ -15,11 +15,23 @@ from typing import List, Dict, Tuple, Optional
 import time
 import requests
 
+from src.config import API_KEY_PATH
+
 POST_BASE_URL = "https://api.stackexchange.com/2.3/questions/{}"
 ANSWER_BASE_URL = "https://api.stackexchange.com/2.2/questions/{}/answers"
+
+
+def read_api_key(file_path: str) -> str:
+    """Read the API key from a text file."""
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return file.read().strip()
+
+
+API_KEY = read_api_key(API_KEY_PATH)
+
 PARAMS = {
     "site": "stackoverflow",
-    "key": "rl_cMc4Gvbc6zeCSRtpyw18cVHQK",
+    "key": API_KEY,
     "filter": "withbody"  # Include the post body in the response
 }
 
