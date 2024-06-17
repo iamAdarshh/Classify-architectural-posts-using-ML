@@ -12,16 +12,6 @@ Usage:
     Run this script to process the input Excel file and fetch post details.
 """
 
-from posts_helpers import clean_input, get_stackoverflow_posts
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    FILENAME = "Architectural Posts.xlsx"
-    NEW_FILENAME = "cleaned architectural posts.xlsx"
-
-    df = clean_input(FILENAME, NEW_FILENAME)
-
-    posts = get_stackoverflow_posts(df['postId'].head(10))
-
-    for post in posts:
-        print(post)
+    print("Hello world")
