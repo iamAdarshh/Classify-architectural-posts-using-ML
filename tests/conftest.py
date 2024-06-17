@@ -1,3 +1,7 @@
+"""
+This module contains shared fixtures, hooks, and configuration settings for pytest.
+"""
+
 import sys
 import os
 
