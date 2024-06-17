@@ -1,11 +1,20 @@
-import pytest
+"""
+This module provides the DatasetSplitter class for splitting datasets into stratified k-folds.
+"""
+
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import StratifiedKFold
 
 
 class DatasetSplitter:
-    def __init__(self, df: pd.DataFrame, column: str, train_percentage: float = 0.8, val_percentage: float = 0.1, n_splits: int = 10):
+    """
+    This class handles the splitting of datasets into stratified k-folds for 
+    training, validation, and testing.
+    """
+
+    def __init__(self, df: pd.DataFrame, column: str, train_percentage: float = 0.8,
+                 val_percentage: float = 0.1, n_splits: int = 10):  # pylint: disable=too-many-arguments
         """
         Initializes the DatasetSplitter class.
 
@@ -26,12 +35,12 @@ class DatasetSplitter:
         """
         Divides the dataset into stratified k-folds.
         """
-        X = np.zeros(len(self.df))
+        x_placeholder = np.zeros(len(self.df))
         y = self.df[self.column]
 
         skf = StratifiedKFold(n_splits=self.n_splits,
                               random_state=42, shuffle=True)
-        for _, test_index in skf.split(X, y):
+        for _, test_index in skf.split(x_placeholder, y):
             self.indices.append(test_index)
 
     def get_folds(self):
@@ -65,7 +74,3 @@ class DatasetSplitter:
         self.stratified_split()
         folds = self.get_folds()
         return folds
-
-
-if __name__ == "__main__":
-    pytest.main()
