@@ -41,17 +41,23 @@ def main():
 
     # Fetch additional post details in batches using the post IDs
     post_ids = cleaned_df['postId'].to_list()
-    posts, not_found_ids = fetch_posts_in_batches(post_ids)
+    posts, not_found_ids, answers = fetch_posts_in_batches(post_ids)
     print("Total not found posts: ", len(not_found_ids))
 
     # Convert the fetched post details to a DataFrame
     architectural_posts_df = pd.DataFrame(posts)
+    architectural_posts_answers_df = pd.DataFrame(answers)
 
     # Save the fetched post details to another Excel file
-    new_filepath = os.path.join(DEFAULT_DATA_FOLDER,
-                                'processed',
-                                'architectural_posts_details.xlsx')
-    save_as_excel(architectural_posts_df, new_filepath)
+    posts_filepath = os.path.join(DEFAULT_DATA_FOLDER,
+                                  'processed',
+                                  'architectural_posts_details.xlsx')
+
+    answers_filepath = os.path.join(DEFAULT_DATA_FOLDER,
+                                    'processed',
+                                    'architectural_posts_answers_details.xlsx')
+    save_as_excel(architectural_posts_df, posts_filepath)
+    save_as_excel(architectural_posts_answers_df, answers_filepath)
     print("Saved file")
 
 
