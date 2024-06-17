@@ -87,18 +87,24 @@ def remove_html_tags(text: str) -> str:
     return soup.get_text()
 
 
-def preprocess_text(text: str) -> str:
+def preprocess_text(text: str|None) -> str|None:
     """Preprocess text by applying a series of text normalization steps."""
-    text_no_html = remove_html_tags(text)
-    normalized_text = normalize_text(text_no_html)
-    expanded_text = expand_contractions(normalized_text)
-    lowercase_text = to_lowercase(expanded_text)
-    no_special_chars_text = remove_special_characters(lowercase_text)
-    no_numbers_text = remove_numbers(no_special_chars_text)
-    no_punctuation_text = remove_punctuation(no_numbers_text)
-    words = nltk.word_tokenize(no_punctuation_text)
-    lemmatized_words = lemmatize_text(words)
-    no_stop_words_text = ' '.join(remove_stop_words(lemmatized_words))
-    final_text = remove_extra_whitespace(no_stop_words_text)
+
+    try:
+        text_no_html = remove_html_tags(text)
+        normalized_text = normalize_text(text_no_html)
+        expanded_text = expand_contractions(normalized_text)
+        lowercase_text = to_lowercase(expanded_text)
+        no_special_chars_text = remove_special_characters(lowercase_text)
+        no_numbers_text = remove_numbers(no_special_chars_text)
+        no_punctuation_text = remove_punctuation(no_numbers_text)
+        words = nltk.word_tokenize(no_punctuation_text)
+        lemmatized_words = lemmatize_text(words)
+        no_stop_words_text = ' '.join(remove_stop_words(lemmatized_words))
+        final_text = remove_extra_whitespace(no_stop_words_text)
+    except Exception as e:
+        print("Exception", e)
+        print('Text: ', text)
+        print()
 
     return final_text
