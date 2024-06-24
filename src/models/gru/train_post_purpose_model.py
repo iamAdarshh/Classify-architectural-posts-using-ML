@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 
-from post_purpose_gru import PostPurposeGRU
+from src.models.gru.post_purpose import PostPurposeGRU
 from src.data.dataset_split import DatasetSplitter
 from src.config import DEFAULT_DATA_FOLDER
 
