@@ -13,8 +13,9 @@ class DatasetSplitter:
     training, validation, and testing.
     """
 
+    # pylint: disable=too-many-arguments
     def __init__(self, df: pd.DataFrame, column: str, train_percentage: float = 0.8,
-                 val_percentage: float = 0.1, n_splits: int = 10):  # pylint: disable=too-many-arguments
+                 val_percentage: float = 0.1, n_splits: int = 10):
         """
         Initializes the DatasetSplitter class.
 
