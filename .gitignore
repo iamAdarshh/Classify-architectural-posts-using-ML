@@ -5,3 +5,6 @@
 
 .DS_Store
 apikey.txt
+
+gensim
+data/word-embedding
