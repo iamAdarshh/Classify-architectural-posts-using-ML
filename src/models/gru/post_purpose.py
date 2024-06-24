@@ -1,7 +1,19 @@
+# pylint: disable=no-member
+
+"""
+This modules includes a GRU model for post purpose.
+"""
+
 import tensorflow as tf
 
+
 class PostPurposeGRU:
-    def __init__(self, vocab_length, embedding_matrix, gru_size=256, hidden_size=128, num_hidden_layers=0):
+    """GRU model for post purpose"""
+
+    # pylint: disable=too-few-public-methods
+    # pylint: disable=too-many-arguments
+    def __init__(self, vocab_length, embedding_matrix,
+                 gru_size=256, hidden_size=128, num_hidden_layers=0):
         model = tf.keras.models.Sequential()
         model.add(
             tf.keras.layers.Embedding(vocab_length, embedding_matrix.shape[1],
@@ -14,9 +26,11 @@ class PostPurposeGRU:
         for _ in range(num_hidden_layers):
             model.add(tf.keras.layers.Dense(hidden_size, activation='relu'))
 
-        model.add(tf.keras.layers.Dense(3, activation='softmax'))  # 3 classes for Analysis, Evaluation, Synthesis
+        # 3 classes for Analysis, Evaluation, Synthesis
+        model.add(tf.keras.layers.Dense(3, activation='softmax'))
 
         self.model = model
 
     def get_model(self):
+        """Returns the model"""
         return self.model
