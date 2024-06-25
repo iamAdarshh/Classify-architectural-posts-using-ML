@@ -122,4 +122,4 @@ test_loss, test_accuracy = model.evaluate(
 print(f'Test Loss: {test_loss}, Test Accuracy: {test_accuracy}')
 
 # Save the model
-model.save(os.path.join(DEFAULT_DATA_FOLDER, 'output', 'post_purpose_gru.h5'))
+model.save(os.path.join(DEFAULT_DATA_FOLDER, 'models', 'post_purpose_gru.h5'))
