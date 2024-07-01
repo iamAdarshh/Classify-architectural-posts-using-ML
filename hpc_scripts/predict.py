@@ -36,35 +36,35 @@ def main():
     label_encoder = LabelEncoder()
     label_encoder.classes_ = np.load(CLASSES_PATH, allow_pickle=True)
 
-    # # Parse the XML file
-    # tree = ET.parse(XML_PATH)
-    # root = tree.getroot()
+    # Parse the XML file
+    tree = ET.parse(XML_PATH)
+    root = tree.getroot()
 
     questions = []
     question_properties = []
 
     # first tryout with the posts
-    dataset = pd.read_excel(f"{DEFAULT_DATA_FOLDER}/processed/architectural_posts_details.xlsx")
-
-    for index, question in dataset.iterrows():
-        title = question['title'] if question['title'] is not None else ''
-        body = question['body'] if question['body'] is not None else ''
-        score = int(question['score']) if question['score'] is not None else 0
-        answer_count = int(question['answer_count']) if question['answer_count'] is not None else 0
-        tags = len(question['tags'].split(',')) if question['tags'] is not None else 0
-        full_text = title + " " + body
-        questions.append(full_text)
-        question_properties.append({'score': score, 'answer_count': answer_count, 'tag_count': tags})
-
-    # for question in root.findall('.//question'):
-    #     title = question.find('title').text if question.find('title') is not None else ''
-    #     body = question.find('body').text if question.find('body') is not None else ''
-    #     score = int(question.find('score').text) if question.find('score') is not None else 0
-    #     answer_count = int(question.find('answerCount').text) if question.find('answerCount') is not None else 0
-    #     tags = question.find('tags').text.split(',').count() if question.find('tags') is not None else 0
+    # dataset = pd.read_excel(f"{DEFAULT_DATA_FOLDER}/processed/architectural_posts_details.xlsx")
+    #
+    # for index, question in dataset.iterrows():
+    #     title = question['title'] if question['title'] is not None else ''
+    #     body = question['body'] if question['body'] is not None else ''
+    #     score = int(question['score']) if question['score'] is not None else 0
+    #     answer_count = int(question['answer_count']) if question['answer_count'] is not None else 0
+    #     tags = len(question['tags'].split(',')) if question['tags'] is not None else 0
     #     full_text = title + " " + body
     #     questions.append(full_text)
     #     question_properties.append({'score': score, 'answer_count': answer_count, 'tag_count': tags})
+
+    for question in root.findall('.//question'):
+        title = question.find('title').text if question.find('title') is not None else ''
+        body = question.find('body').text if question.find('body') is not None else ''
+        score = int(question.find('score').text) if question.find('score') is not None else 0
+        answer_count = int(question.find('answerCount').text) if question.find('answerCount') is not None else 0
+        tags = question.find('tags').text.split(',').count() if question.find('tags') is not None else 0
+        full_text = title + " " + body
+        questions.append(full_text)
+        question_properties.append({'score': score, 'answer_count': answer_count, 'tag_count': tags})
 
     # Initialize counters and property collectors
     post_counts = defaultdict(int)
