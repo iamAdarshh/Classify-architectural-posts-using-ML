@@ -117,7 +117,7 @@ for train_index, test_index in kf.split(padded_sequences, dataset['category']):
     fold_results = pd.DataFrame({
         'fold': fold_no,
         'true': y_true,
-        'predicted': y_pred_classes
+        'predicted': y_pred_classes,
         'f1': f1,
         'accuracy': accuracy,
         'precision': precision,
