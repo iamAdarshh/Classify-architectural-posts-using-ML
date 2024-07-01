@@ -1,24 +1,33 @@
-import os
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
+import pandas as pd
 
-from src.config import DEFAULT_DATA_FOLDER
 
-XML_PATH = os.path.join(DEFAULT_DATA_FOLDER, 'input', 'stackoverflow_questions.xml')  # Path to the XML file
+def parse_posts(path):
+    context = ET.iterparse(path, events=('end',), tag='row')
+    questions = []
+    answers = []
 
-def main():
-    # Parse the XML file
-    tree = ET.parse(XML_PATH)
-    root = tree.getroot()
+    for event, elem in context:
+        if elem.tag == 'row' and elem.attrib:
+            attrib_dict = dict(elem.attrib)  # Convert to regular dictionary
+            post_type = attrib_dict.get('PostTypeId')
+            if post_type == '1':
+                questions.append(attrib_dict)
+            elif post_type == '2' and 'ParentId' in attrib_dict:
+                answers.append(attrib_dict)
 
-    # Initialize a counter for questions
-    question_count = 0
+        elem.clear()
+        while elem.getprevious() is not None:
+            del elem.getparent()[0]
 
-    # Iterate through each question element
-    for question in root.findall('.//question'):
-        question_count += 1  # Increment the counter for each question
+    return len(questions), len(answers)
 
-    # Print the total number of questions
-    print(f'Total number of questions: {question_count}')
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    # Specify the path to your Posts.xml file
+    file_path = '/scratch/hpc-prf-dssecs/Posts.xml'
+
+    questions_df, answers_df = parse_posts(file_path)
+
+    # Display the DataFrames
+    print("Total number of questions: ", questions_df, answers_df)
