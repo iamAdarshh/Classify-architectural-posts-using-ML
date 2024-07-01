@@ -199,6 +199,6 @@ plt.grid(True)
 
 # Save the plot to a file instead of displaying it
 plot_path = os.path.join(
-    DEFAULT_DATA_FOLDER, 'rnu_training_validation_loss.png')
+    DEFAULT_DATA_FOLDER, 'gru_training_validation_loss.png')
 plt.savefig(plot_path)
 plt.close()
